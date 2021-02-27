@@ -1,16 +1,19 @@
+CREATE TABLE athletes(
+  id int,
+  name varchar(50),
+  identified_gender varchar(1),
+  dob date
+  PRIMARY KEY(id)
+)
 
-CREATE TABLE department (
-  dept_name varchar(20),
-  building varchar(15),
-  budget numeric(12,2) check (budget > 0),
-  primary key (dept_name)
-);
+CREATE TABLE schema_migrations (
+ migration varchar(255),
+ migrated_at time,
+ PRIMARY KEY (migration)
+); 
 
-CREATE TABLE course (course_id    varchar(8),
-  title varchar(50),
-  dept_name varchar(20),
-  credits numeric(2,0) check (credits > 0),
-  primary key (course_id),
-  foreign key (dept_name) references department
-  on delete set null
-);
+ALTER TABLE athletes
+RENAME COLUMN identified_gender TO gender;
+
+INSERT INTO schema_migrations (migration, migrated_at) VALUES
+('20200206230001-update-athletes.sql', '2020-01-27 18:30:00'); 
